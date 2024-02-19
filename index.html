@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tune - Music Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="brand"><img src="https://www.freepnglogos.com/uploads/spotify-logo-png/spotify-download-logo-30.png" alt="Spotify logo">spotify</li>
+            <li>Home</li>
+            <li>About</li>
+        </ul>
+    </nav>
+    <div class="container">
+        <div class="songlist">
+            <h2>Best of NCS - No Copy Sounds</h2>
+            <div> 
+                <div class="songItem" data-src="music\Besabriyaan (MS Dhoni - The Untold Story) - Copy (2).mp3">
+                    <img src="p.jpg.jpg" alt="1" height="80" width="80">
+                    <span>Besabariyaa</span>
+                    <span class="timestamp">05:34</span>
+                    <i class="far fa-play-circle playPauseBtn"></i>
+                </div>
+                <div class="songItem" data-src="music\Butterfly - iPendu.Com.mp3">
+                    <img src="p.jpg.jpg" alt="1" height="80" width="80">
+                    <span>Butterfly</span>
+                    <span class="timestamp">05:34</span>
+                    <i class="far fa-play-circle playPauseBtn"></i>
+                </div>
+                <div class="songItem" data-src="music\Patola - Guru Randhawa Bohemia.mp3">
+                    <img src="p.jpg.jpg" alt="1" height="80" width="80">
+                    <span>patola</span>
+                    <span class="timestamp">05:34</span>
+                    <i class="far fa-play-circle playPauseBtn"></i>
+                </div>
+                <div class="songItem" data-src="music\Phir Kabhi - MS Dhoni (Arijit Singh) - 320Kbps.mp3">
+                    <img src="p.jpg.jpg" alt="1" height="80" width="80">
+                    <span>phir kabhi</span>
+                    <span class="timestamp">05:34</span>
+                    <i class="far fa-play-circle playPauseBtn"></i>
+                </div>
+                <div class="songItem" data-src="music\Tera Yaar Hoon Main - Sonu Ke Titu Ki Sweety.mp3">
+                    <img src="p.jpg.jpg" alt="1" height="80" width="80">
+                    <span>tera yaar hu mai</span>
+                    <span class="timestamp">05:34</span>
+                    <i class="far fa-play-circle playPauseBtn"></i>
+                </div>
+                
+                <!-- Add more song items with data-src attributes pointing to the audio files -->
+            </div>
+        </div>
+        <div class="songbanner"></div>
+    </div>
+    <div class="bottom">
+        <input type="range" name="range" id="myprogressBar" min="0" max="100">
+        <div class="icons">
+            <!-- Font Awesome icons -->
+            <i class="fas fa-3x fa-step-backward"></i>
+            <i class="far fa-3x fa-play-circle" id="playPauseBtn"></i>
+            <i class="fas fa-3x fa-step-forward"></i>
+        </div>
+        <div class="songInfo">
+            <img src="E:\swatisweb\gif\music.gif" width="60px" alt="Song image">Besabariyaa
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/870bf5c994.js" crossorigin="anonymous"></script>
+    <script>
+        const mainPlayPauseBtn = document.getElementById('playPauseBtn');
+        const audio = new Audio();
+        let isPlaying = false;
+
+        function togglePlay() {
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play();
+            }
+            isPlaying = !isPlaying;
+        }
+
+        mainPlayPauseBtn.addEventListener('click', togglePlay);
+
+        const songItems = document.querySelectorAll('.songItem');
+        songItems.forEach(item => {
+            const playPauseBtn = item.querySelector('.playPauseBtn');
+            item.addEventListener('click', function() {
+                const src = this.getAttribute('data-src');
+                if (src) {
+                    if (audio.src === src && !audio.paused) {
+                        audio.pause();
+                        isPlaying = false;
+                    } else {
+                        audio.src = src;
+                        audio.play();
+                        isPlaying = true;
+                    }
+                }
+            });
+            playPauseBtn.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent click event from bubbling to parent
+                if (audio.src === item.getAttribute('data-src')) {
+                    togglePlay();
+                } else {
+                    audio.src = item.getAttribute('data-src');
+                    audio.play();
+                    isPlaying = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
